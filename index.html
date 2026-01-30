@@ -18,65 +18,82 @@
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root {
+    :root{
       --glass: rgba(255,255,255,.08);
       --stroke: rgba(255,255,255,.14);
     }
     html { scroll-behavior: smooth; }
     body { font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    .glass {
+    .glass{
       background: var(--glass);
       border: 1px solid var(--stroke);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
     }
-    .soft-shadow { box-shadow: 0 12px 40px rgba(0,0,0,.35); }
-    .ringy { box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset; }
-    .gradient-text {
+    .soft-shadow{ box-shadow: 0 12px 40px rgba(0,0,0,.35); }
+    .ringy{ box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset; }
+    .gradient-text{
       background: linear-gradient(90deg, #a7f3d0, #60a5fa, #a78bfa);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
     }
-    .hero-video {
+    .hero-video{
       position:absolute; inset:0;
       width:100%; height:100%;
-      object-fit: cover;
-      filter: saturate(1.05) contrast(1.05) brightness(.78);
-      transform: scale(1.02);
+      object-fit:cover;
+      filter:saturate(1.05) contrast(1.05) brightness(.78);
+      transform:scale(1.02);
     }
-    .hero-overlay {
+    .hero-overlay{
       position:absolute; inset:0;
       background:
         radial-gradient(1200px 600px at 10% 10%, rgba(16,185,129,.35), transparent 55%),
         radial-gradient(900px 500px at 85% 25%, rgba(59,130,246,.28), transparent 50%),
         linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.72));
     }
-    .grain {
+    .grain{
       position:absolute; inset:-40%;
       background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
       opacity:.18; pointer-events:none;
-      mix-blend-mode: overlay;
+      mix-blend-mode:overlay;
       animation: floaty 18s ease-in-out infinite;
     }
-    @keyframes floaty { 0%,100% { transform: translate3d(-2%, -1%, 0) } 50% { transform: translate3d(2%, 1%, 0) } }
-    .blob {
-      position:absolute; border-radius:9999px; filter: blur(40px);
-      opacity:.38; mix-blend-mode: screen;
+    @keyframes floaty { 0%,100%{transform:translate3d(-2%,-1%,0)} 50%{transform:translate3d(2%,1%,0)} }
+    .blob{
+      position:absolute; border-radius:9999px; filter:blur(40px);
+      opacity:.38; mix-blend-mode:screen;
       animation: blob 16s ease-in-out infinite;
     }
-    @keyframes blob {
-      0%,100% { transform: translate(0,0) scale(1); }
-      50% { transform: translate(18px,-22px) scale(1.12); }
-    }
-    .btn { transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 16px 40px rgba(0,0,0,.35); }
-    .divider { background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent); height:1px; }
+    @keyframes blob { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(18px,-22px) scale(1.12)} }
+    .btn{ transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 16px 40px rgba(0,0,0,.35); }
+    .divider{ background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent); height:1px; }
 
-    /* Showcase video card */
-    .showcase-wrap { border-radius: 1.5rem; overflow: hidden; background: rgba(255,255,255,.04); }
-    .showcase-video { width:100%; height: 440px; object-fit: cover; display:block; filter: saturate(1.05) contrast(1.02); }
-    @media (max-width: 640px) { .showcase-video { height: 380px; } }
+    /* Video card */
+    .video-card{ position:relative; overflow:hidden; border-radius: 1.5rem; background: rgba(255,255,255,.04); }
+    .video-card video{
+      width:100%;
+      height: 460px;
+      object-fit: cover;
+      display:block;
+      filter: saturate(1.05) contrast(1.05);
+    }
+    @media (min-width: 768px){
+      .video-card video{ height: 520px; }
+    }
+    .tap-chip{
+      position:absolute; top:16px; right:16px;
+      background: rgba(0,0,0,.45);
+      border:1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      color: rgba(255,255,255,.92);
+    }
   </style>
 </head>
 
@@ -90,19 +107,16 @@
       <div class="mt-3 glass soft-shadow rounded-2xl">
         <div class="flex items-center justify-between px-4 py-3 md:px-6">
           <a href="#top" class="flex items-center gap-3">
-            <!-- Upload your logo file into the SAME folder as this HTML and name it: logo.png -->
-            <!-- If logo.png exists, it will show. If not, the LD fallback stays visible. -->
-            <div class="relative h-9 w-9">
-              <div class="absolute inset-0 h-9 w-9 rounded-xl bg-emerald-400/15 ringy grid place-items-center">
-                <span class="text-emerald-200 font-extrabold">LD</span>
-              </div>
-              <img
-                src="logo.png"
-                alt="Lawn Doctor logo"
-                class="absolute inset-0 h-9 w-9 rounded-xl object-contain bg-white/90 p-1 hidden"
-                onload="this.classList.remove('hidden')"
-                onerror="this.remove()"
-              />
+            <!-- LOGO: upload your logo file into the same folder as this HTML and name it: ld-logo.png -->
+            <!-- If your file name is different, change ld-logo.png below. -->
+            <img
+              src="ld-logo.png"
+              alt="Lawn Doctor logo"
+              class="h-9 w-9 rounded-xl object-contain bg-white/5 border border-white/10 p-1"
+              onerror="this.remove(); document.getElementById('logoFallback').classList.remove('hidden');"
+            />
+            <div id="logoFallback" class="hidden h-9 w-9 rounded-xl bg-emerald-400/15 ringy grid place-items-center">
+              <span class="text-emerald-200 font-extrabold">LD</span>
             </div>
 
             <div class="leading-tight">
@@ -136,6 +150,7 @@
 
   <!-- HERO -->
   <section id="top" class="relative min-h-[92vh] overflow-hidden">
+    <!-- Hero background video -->
     <video class="hero-video" autoplay muted loop playsinline preload="auto">
       <source src="https://videos.pexels.com/video-files/35281465/14946513_3840_2160_30fps.mp4" type="video/mp4" />
       <source src="https://videos.pexels.com/video-files/33086621/14103336_2160_3840_32fps.mp4" type="video/mp4" />
@@ -144,8 +159,9 @@
     <div class="hero-overlay"></div>
     <div class="grain"></div>
 
+    <!-- Animated color blobs -->
     <div class="blob -z-10 w-[520px] h-[520px] left-[-120px] top-[120px]" style="background: rgba(16,185,129,.55)"></div>
-    <div class="blob -z-10 w-[520px] h-[520px] right-[-140px] top-[40px]" style="background: rgba(59,130,246,.45); animation-delay: -4s"></div>
+    <div class="blob -z-10 w-[520px] h-[520px] right-[-140px] top-[40px]" style="background: rgba(59,130,246,.45); animation-delay:-4s"></div>
 
     <div class="mx-auto max-w-7xl px-4 pt-16 pb-16 md:pt-24">
       <div class="grid gap-10 md:grid-cols-12 items-center">
@@ -169,7 +185,7 @@
               Call Now: (563) 271-0459
             </a>
             <a href="#showcase" class="btn rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 px-6 py-3 font-bold">
-              Watch Showcase
+              Watch the Work
             </a>
           </div>
 
@@ -232,9 +248,7 @@
               </a>
             </div>
 
-            <p class="mt-4 text-xs text-white/55">
-              Owner: Clifton Hare • Davenport, Iowa
-            </p>
+            <p class="mt-4 text-xs text-white/55">Owner: Clifton Hare • Davenport, Iowa</p>
           </div>
         </div>
       </div>
@@ -280,7 +294,7 @@
     </div>
   </section>
 
-  <!-- SHOWCASE (replaces Before/After) -->
+  <!-- SHOWCASE (replaces before/after) -->
   <section id="showcase" class="mx-auto max-w-7xl px-4 py-14">
     <div class="grid gap-10 md:grid-cols-12 items-start">
       <div class="md:col-span-5">
@@ -289,34 +303,32 @@
           A quick look at the work.
         </h2>
         <p class="mt-3 text-white/70" data-aos="fade-right" data-aos-delay="120">
-          This video auto-plays (muted) and loops. Tap to unmute on mobile.
+          Smooth, clean cuts — built for curb appeal.
         </p>
 
         <div class="mt-6 glass rounded-3xl p-6 ringy" data-aos="fade-right" data-aos-delay="170">
-          <div class="font-extrabold">Want to use your own video?</div>
+          <div class="font-extrabold">Tip (not shown on the site):</div>
           <div class="text-white/70 text-sm mt-1">
-            Upload a file named <span class="font-semibold text-white">showcase.mp4</span> into the same folder as this HTML,
-            then set <span class="font-semibold text-white">USE_LOCAL_SHOWCASE</span> to <span class="font-semibold text-white">true</span> in the script below.
+            If you later want to use your own video, upload an MP4 and set <code class="bg-white/10 px-2 py-1 rounded-lg">SHOWCASE_SRC</code> in the script at the bottom.
           </div>
         </div>
       </div>
 
       <div class="md:col-span-7" data-aos="zoom-in" data-aos-delay="120">
-        <div class="showcase-wrap soft-shadow ringy">
+        <div class="video-card soft-shadow ringy">
+          <div class="tap-chip">Tap to unmute</div>
+
+          <!-- This video is a stock clip. You can swap it any time by changing SHOWCASE_SRC in the script below. -->
           <video
             id="showcaseVideo"
-            class="showcase-video"
             autoplay
             muted
             loop
             playsinline
-            controls
             preload="metadata"
-            poster=""
+            referrerpolicy="no-referrer"
           >
-            <!-- Default web video (you can replace these sources anytime) -->
-            <source src="https://videos.pexels.com/video-files/35281465/14946513_3840_2160_30fps.mp4" type="video/mp4" />
-            <source src="https://videos.pexels.com/video-files/33086621/14103336_2160_3840_32fps.mp4" type="video/mp4" />
+            <source id="showcaseSource" src="https://videos.pexels.com/video-files/34288837/14526690_2160_3840_60fps.mp4" type="video/mp4" />
           </video>
         </div>
       </div>
@@ -434,6 +446,10 @@
           <button class="btn rounded-2xl bg-emerald-500/95 hover:bg-emerald-500 px-6 py-3 font-extrabold text-emerald-950 w-full md:w-auto">
             Email Quote Request
           </button>
+
+          <p class="text-xs text-white/55">
+            Submits through your email app (fast + simple). You can add a real form later anytime.
+          </p>
         </form>
       </div>
 
@@ -475,28 +491,8 @@
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <script>
-    // ====== OPTIONAL: use a local video file instead of web video ======
-    // Upload a file named "showcase.mp4" next to this HTML, then set to true.
-    const USE_LOCAL_SHOWCASE = false;
-
-    if (USE_LOCAL_SHOWCASE) {
-      const v = document.getElementById('showcaseVideo');
-      // replace the sources with your local file
-      v.innerHTML = '';
-      const s = document.createElement('source');
-      s.src = 'showcase.mp4';
-      s.type = 'video/mp4';
-      v.appendChild(s);
-      v.load();
-    }
-
     // AOS init
-    AOS.init({
-      once: true,
-      duration: 900,
-      offset: 80,
-      easing: 'ease-out-cubic'
-    });
+    AOS.init({ once:true, duration:900, offset:80, easing:'ease-out-cubic' });
 
     // Year
     document.getElementById('yr').textContent = new Date().getFullYear();
@@ -518,6 +514,22 @@
         modes: { repulse: { distance: 120 }, push: { particles_nb: 2 } }
       },
       retina_detect: true
+    });
+
+    // SHOWCASE VIDEO: swap this URL any time (or point it to your own uploaded MP4)
+    // Example if you upload: showcase.mp4  ->  const SHOWCASE_SRC = "showcase.mp4";
+    const SHOWCASE_SRC = "https://videos.pexels.com/video-files/34288837/14526690_2160_3840_60fps.mp4";
+
+    const showcaseVideo = document.getElementById("showcaseVideo");
+    const showcaseSource = document.getElementById("showcaseSource");
+    showcaseSource.src = SHOWCASE_SRC;
+    showcaseVideo.load();
+
+    // Tap/click to toggle mute (mobile-friendly)
+    showcaseVideo.addEventListener("click", () => {
+      showcaseVideo.muted = !showcaseVideo.muted;
+      if (!showcaseVideo.paused) return;
+      showcaseVideo.play().catch(()=>{});
     });
 
     // Contact form -> mailto
