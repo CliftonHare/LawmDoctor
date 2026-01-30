@@ -3,552 +3,174 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Lawn Doctor | Davenport, IA Lawn Care (Quad Cities)</title>
-  <meta name="description" content="Lawn Doctor — Residential & Commercial Lawn Care in Davenport, IA and the Quad Cities. Call 563-271-0459." />
+  <title>Lawn Doctor | Davenport, IA Lawn Care</title>
+  <meta name="description" content="Professional residential and commercial lawn care in Davenport and the Quad Cities." />
 
-  <!-- Tailwind (CDN) -->
+  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- AOS (Animate On Scroll) -->
+  <!-- AOS -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
 
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    :root{
-      --glass: rgba(255,255,255,.08);
-      --stroke: rgba(255,255,255,.14);
-    }
-    html { scroll-behavior: smooth; }
-    body { font-family: Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
-    .glass{
-      background: var(--glass);
-      border: 1px solid var(--stroke);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-    }
-    .soft-shadow{ box-shadow: 0 12px 40px rgba(0,0,0,.35); }
-    .ringy{ box-shadow: 0 0 0 1px rgba(255,255,255,.08) inset; }
-    .gradient-text{
-      background: linear-gradient(90deg, #a7f3d0, #60a5fa, #a78bfa);
-      -webkit-background-clip:text;
-      background-clip:text;
-      color:transparent;
-    }
-    .hero-video{
-      position:absolute; inset:0;
-      width:100%; height:100%;
-      object-fit:cover;
-      filter:saturate(1.05) contrast(1.05) brightness(.78);
-      transform:scale(1.02);
-    }
-    .hero-overlay{
-      position:absolute; inset:0;
-      background:
-        radial-gradient(1200px 600px at 10% 10%, rgba(16,185,129,.35), transparent 55%),
-        radial-gradient(900px 500px at 85% 25%, rgba(59,130,246,.28), transparent 50%),
-        linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.72));
-    }
-    .grain{
-      position:absolute; inset:-40%;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
-      opacity:.18; pointer-events:none;
-      mix-blend-mode:overlay;
-      animation: floaty 18s ease-in-out infinite;
-    }
-    @keyframes floaty { 0%,100%{transform:translate3d(-2%,-1%,0)} 50%{transform:translate3d(2%,1%,0)} }
-    .blob{
-      position:absolute; border-radius:9999px; filter:blur(40px);
-      opacity:.38; mix-blend-mode:screen;
-      animation: blob 16s ease-in-out infinite;
-    }
-    @keyframes blob { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(18px,-22px) scale(1.12)} }
-    .btn{ transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
-    .btn:hover{ transform: translateY(-1px); box-shadow: 0 16px 40px rgba(0,0,0,.35); }
-    .divider{ background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent); height:1px; }
+    body { font-family: Manrope, system-ui, sans-serif; background:#09090b; color:white; }
+    html { scroll-behavior:smooth; }
 
-    /* Video card */
-    .video-card{ position:relative; overflow:hidden; border-radius: 1.5rem; background: rgba(255,255,255,.04); }
-    .video-card video{
+    .glass {
+      background: rgba(255,255,255,.08);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,.14);
+    }
+
+    .btn { transition:.2s ease; }
+    .btn:hover { transform: translateY(-1px); }
+
+    .video-card {
+      position:relative;
+      border-radius:1.5rem;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.15);
+    }
+
+    .video-card video {
       width:100%;
-      height: 460px;
-      object-fit: cover;
-      display:block;
-      filter: saturate(1.05) contrast(1.05);
+      height:420px;
+      object-fit:cover;
+      background:black;
     }
-    @media (min-width: 768px){
-      .video-card video{ height: 520px; }
-    }
-    .tap-chip{
-      position:absolute; top:16px; right:16px;
-      background: rgba(0,0,0,.45);
-      border:1px solid rgba(255,255,255,.18);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 12px;
-      font-weight: 800;
-      color: rgba(255,255,255,.92);
+
+    .tap-chip {
+      position:absolute;
+      bottom:16px;
+      right:16px;
+      background:rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.2);
+      padding:6px 12px;
+      border-radius:999px;
+      font-size:12px;
     }
   </style>
 </head>
 
-<body class="bg-zinc-950 text-white selection:bg-emerald-400/30">
-  <!-- Animated particles background -->
-  <div id="particles-js" class="fixed inset-0 -z-50 opacity-45"></div>
+<body>
 
-  <!-- Top Nav -->
-  <header class="sticky top-0 z-50">
-    <div class="mx-auto max-w-7xl px-4">
-      <div class="mt-3 glass soft-shadow rounded-2xl">
-        <div class="flex items-center justify-between px-4 py-3 md:px-6">
-          <a href="#top" class="flex items-center gap-3">
-            <!-- LOGO: upload your logo file into the same folder as this HTML and name it: ld-logo.png -->
-            <!-- If your file name is different, change ld-logo.png below. -->
-            <img
-              src="ld-logo.png"
-              alt="Lawn Doctor logo"
-              class="h-9 w-9 rounded-xl object-contain bg-white/5 border border-white/10 p-1"
-              onerror="this.remove(); document.getElementById('logoFallback').classList.remove('hidden');"
-            />
-            <div id="logoFallback" class="hidden h-9 w-9 rounded-xl bg-emerald-400/15 ringy grid place-items-center">
-              <span class="text-emerald-200 font-extrabold">LD</span>
-            </div>
-
-            <div class="leading-tight">
-              <div class="font-extrabold tracking-tight">Lawn Doctor</div>
-              <div class="text-xs text-white/70">Davenport • Quad Cities</div>
-            </div>
-          </a>
-
-          <nav class="hidden md:flex items-center gap-6 text-sm text-white/80">
-            <a class="hover:text-white" href="#services">Services</a>
-            <a class="hover:text-white" href="#showcase">Showcase</a>
-            <a class="hover:text-white" href="#gallery">Gallery</a>
-            <a class="hover:text-white" href="#reviews">Reviews</a>
-            <a class="hover:text-white" href="#contact">Contact</a>
-          </nav>
-
-          <div class="flex items-center gap-2">
-            <a href="tel:15632710459"
-               class="btn rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 px-3 py-2 text-sm">
-              Call
-            </a>
-            <a href="#contact"
-               class="btn rounded-xl bg-emerald-500/90 hover:bg-emerald-500 px-3 py-2 text-sm font-bold text-emerald-950">
-              Get a Quote
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section id="top" class="relative min-h-[92vh] overflow-hidden">
-    <!-- Hero background video -->
-    <video class="hero-video" autoplay muted loop playsinline preload="auto">
-      <source src="https://videos.pexels.com/video-files/35281465/14946513_3840_2160_30fps.mp4" type="video/mp4" />
-      <source src="https://videos.pexels.com/video-files/33086621/14103336_2160_3840_32fps.mp4" type="video/mp4" />
-    </video>
-
-    <div class="hero-overlay"></div>
-    <div class="grain"></div>
-
-    <!-- Animated color blobs -->
-    <div class="blob -z-10 w-[520px] h-[520px] left-[-120px] top-[120px]" style="background: rgba(16,185,129,.55)"></div>
-    <div class="blob -z-10 w-[520px] h-[520px] right-[-140px] top-[40px]" style="background: rgba(59,130,246,.45); animation-delay:-4s"></div>
-
-    <div class="mx-auto max-w-7xl px-4 pt-16 pb-16 md:pt-24">
-      <div class="grid gap-10 md:grid-cols-12 items-center">
-        <div class="md:col-span-7">
-          <div class="inline-flex items-center gap-2 glass rounded-full px-4 py-2 text-xs text-white/80" data-aos="fade-down">
-            <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
-            Residential & Commercial • Davenport, IA • Quad Cities + Surrounding Areas
-          </div>
-
-          <h1 class="mt-5 text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.03]" data-aos="fade-up">
-            A <span class="gradient-text">healthier, cleaner</span> lawn — without the hassle.
-          </h1>
-
-          <p class="mt-5 text-white/80 text-lg md:text-xl max-w-2xl" data-aos="fade-up" data-aos-delay="100">
-            Lawn Doctor delivers professional mowing, trimming, cleanups, and seasonal care for homes and businesses.
-            Crisp lines. Reliable scheduling. Noticeable results.
-          </p>
-
-          <div class="mt-7 flex flex-col sm:flex-row gap-3" data-aos="fade-up" data-aos-delay="180">
-            <a href="tel:15632710459" class="btn rounded-2xl bg-emerald-500/95 hover:bg-emerald-500 px-6 py-3 font-extrabold text-emerald-950">
-              Call Now: (563) 271-0459
-            </a>
-            <a href="#showcase" class="btn rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 px-6 py-3 font-bold">
-              Watch the Work
-            </a>
-          </div>
-
-          <div class="mt-8 grid grid-cols-2 sm:grid-cols-3 gap-3 text-sm text-white/75" data-aos="fade-up" data-aos-delay="220">
-            <div class="glass rounded-2xl p-4">
-              <div class="text-white font-extrabold">Fast Quotes</div>
-              <div class="text-white/70">Clear pricing & scheduling</div>
-            </div>
-            <div class="glass rounded-2xl p-4">
-              <div class="text-white font-extrabold">Pro Equipment</div>
-              <div class="text-white/70">Clean, consistent cuts</div>
-            </div>
-            <div class="glass rounded-2xl p-4">
-              <div class="text-white font-extrabold">Reliable</div>
-              <div class="text-white/70">Show up & finish strong</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="md:col-span-5" data-aos="zoom-in" data-aos-delay="120">
-          <div class="glass soft-shadow rounded-3xl p-5 ringy">
-            <div class="text-sm text-white/70 font-semibold">Serving</div>
-            <div class="mt-1 text-2xl font-extrabold">Quad Cities Area</div>
-            <div class="mt-3 divider"></div>
-
-            <div class="mt-5 space-y-4 text-white/80">
-              <div class="flex gap-3">
-                <div class="h-10 w-10 rounded-2xl bg-emerald-500/15 ringy grid place-items-center">🏡</div>
-                <div>
-                  <div class="font-extrabold text-white">Residential Lawn Care</div>
-                  <div class="text-sm text-white/70">Weekly/biweekly mowing, edging, trimming.</div>
-                </div>
-              </div>
-
-              <div class="flex gap-3">
-                <div class="h-10 w-10 rounded-2xl bg-sky-500/15 ringy grid place-items-center">🏢</div>
-                <div>
-                  <div class="font-extrabold text-white">Commercial Maintenance</div>
-                  <div class="text-sm text-white/70">Consistent curb appeal for properties.</div>
-                </div>
-              </div>
-
-              <div class="flex gap-3">
-                <div class="h-10 w-10 rounded-2xl bg-violet-500/15 ringy grid place-items-center">✨</div>
-                <div>
-                  <div class="font-extrabold text-white">Cleanups & Seasonal</div>
-                  <div class="text-sm text-white/70">Spring/fall cleanups, mulch, touch-ups.</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="mt-6 grid grid-cols-2 gap-3">
-              <a class="btn rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 px-4 py-3 font-bold text-center"
-                 href="mailto:lawndoctor563@gmail.com?subject=Lawn%20Doctor%20Quote%20Request">
-                Email Quote
-              </a>
-              <a class="btn rounded-2xl bg-emerald-500/90 hover:bg-emerald-500 px-4 py-3 font-extrabold text-emerald-950 text-center"
-                 href="#contact">
-                Book Service
-              </a>
-            </div>
-
-            <p class="mt-4 text-xs text-white/55">Owner: Clifton Hare • Davenport, Iowa</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section id="services" class="mx-auto max-w-7xl px-4 py-14">
-    <div class="flex items-end justify-between gap-6">
+<!-- NAV -->
+<header class="sticky top-0 z-50 px-4 py-3">
+  <div class="glass max-w-7xl mx-auto rounded-2xl px-4 py-3 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <!-- Replace with your logo file later -->
+      <div class="h-9 w-9 rounded-xl bg-emerald-500/20 grid place-items-center font-bold text-emerald-300">LD</div>
       <div>
-        <div class="text-emerald-200/90 font-extrabold tracking-wide" data-aos="fade-right">SERVICES</div>
-        <h2 class="mt-2 text-3xl md:text-4xl font-extrabold" data-aos="fade-right" data-aos-delay="80">
-          Everything your lawn needs — done right.
-        </h2>
-        <p class="mt-3 text-white/70 max-w-2xl" data-aos="fade-right" data-aos-delay="130">
-          Residential and commercial service across Davenport and the Quad Cities.
-        </p>
-      </div>
-      <a href="#contact" class="hidden md:inline-flex btn rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 px-5 py-3 font-bold"
-         data-aos="fade-left">
-        Get Pricing
-      </a>
-    </div>
-
-    <div class="mt-10 grid gap-5 md:grid-cols-3">
-      <div class="glass rounded-3xl p-6 ringy soft-shadow" data-aos="fade-up">
-        <div class="text-3xl">🟩</div>
-        <div class="mt-3 text-xl font-extrabold">Mowing & Striping</div>
-        <p class="mt-2 text-white/70">Clean, consistent cuts with professional equipment for a sharp finish.</p>
-      </div>
-
-      <div class="glass rounded-3xl p-6 ringy soft-shadow" data-aos="fade-up" data-aos-delay="80">
-        <div class="text-3xl">✂️</div>
-        <div class="mt-3 text-xl font-extrabold">Trimming & Edging</div>
-        <p class="mt-2 text-white/70">Crisp edges along sidewalks, driveways, beds, and fences.</p>
-      </div>
-
-      <div class="glass rounded-3xl p-6 ringy soft-shadow" data-aos="fade-up" data-aos-delay="160">
-        <div class="text-3xl">🍂</div>
-        <div class="mt-3 text-xl font-extrabold">Seasonal Cleanups</div>
-        <p class="mt-2 text-white/70">Spring/fall cleanups, leaf removal, and property refreshes.</p>
+        <div class="font-extrabold">Lawn Doctor</div>
+        <div class="text-xs text-white/70">Davenport • Quad Cities</div>
       </div>
     </div>
-  </section>
-
-  <!-- SHOWCASE (replaces before/after) -->
-  <section id="showcase" class="mx-auto max-w-7xl px-4 py-14">
-    <div class="grid gap-10 md:grid-cols-12 items-start">
-      <div class="md:col-span-5">
-        <div class="text-emerald-200/90 font-extrabold tracking-wide" data-aos="fade-right">SHOWCASE</div>
-        <h2 class="mt-2 text-3xl md:text-4xl font-extrabold" data-aos="fade-right" data-aos-delay="70">
-          A quick look at the work.
-        </h2>
-        <p class="mt-3 text-white/70" data-aos="fade-right" data-aos-delay="120">
-          Smooth, clean cuts — built for curb appeal.
-        </p>
-
-        <div class="mt-6 glass rounded-3xl p-6 ringy" data-aos="fade-right" data-aos-delay="170">
-          <div class="font-extrabold">Tip (not shown on the site):</div>
-          <div class="text-white/70 text-sm mt-1">
-            If you later want to use your own video, upload an MP4 and set <code class="bg-white/10 px-2 py-1 rounded-lg">SHOWCASE_SRC</code> in the script at the bottom.
-          </div>
-        </div>
-      </div>
-
-      <div class="md:col-span-7" data-aos="zoom-in" data-aos-delay="120">
-        <div class="video-card soft-shadow ringy">
-          <div class="tap-chip">Tap to unmute</div>
-
-          <!-- This video is a stock clip. You can swap it any time by changing SHOWCASE_SRC in the script below. -->
-          <video
-            id="showcaseVideo"
-            autoplay
-            muted
-            loop
-            playsinline
-            preload="metadata"
-            referrerpolicy="no-referrer"
-          >
-            <source id="showcaseSource" src="https://videos.pexels.com/video-files/34288837/14526690_2160_3840_60fps.mp4" type="video/mp4" />
-          </video>
-        </div>
-      </div>
+    <div class="flex gap-2">
+      <a href="tel:15632710459" class="btn px-4 py-2 rounded-xl bg-white/10 border border-white/15">Call</a>
+      <a href="#contact" class="btn px-4 py-2 rounded-xl bg-emerald-500 text-black font-bold">Get a Quote</a>
     </div>
-  </section>
+  </div>
+</header>
 
-  <!-- GALLERY -->
-  <section id="gallery" class="mx-auto max-w-7xl px-4 py-14">
+<!-- HERO -->
+<section class="relative min-h-[90vh] flex items-center px-4">
+  <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover brightness-75">
+    <source src="https://videos.pexels.com/video-files/35281465/14946513_3840_2160_30fps.mp4" type="video/mp4">
+  </video>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80"></div>
+
+  <div class="relative max-w-7xl mx-auto grid md:grid-cols-2 gap-10">
     <div>
-      <div class="text-emerald-200/90 font-extrabold tracking-wide" data-aos="fade-right">GALLERY</div>
-      <h2 class="mt-2 text-3xl md:text-4xl font-extrabold" data-aos="fade-right" data-aos-delay="70">
-        Professional equipment. Professional results.
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+        Clean cuts.<br><span class="text-emerald-400">Professional results.</span>
+      </h1>
+      <p class="mt-5 text-white/80 text-lg">
+        Residential and commercial lawn care you can count on.
+      </p>
+      <div class="mt-7 flex gap-3">
+        <a href="tel:15632710459" class="btn px-6 py-3 rounded-2xl bg-emerald-500 text-black font-bold">
+          Call (563) 271-0459
+        </a>
+        <a href="#services" class="btn px-6 py-3 rounded-2xl bg-white/10 border border-white/15">
+          View Services
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHOWCASE -->
+<section class="max-w-7xl mx-auto px-4 py-16">
+  <div class="grid md:grid-cols-12 gap-10 items-start">
+    <div class="md:col-span-5">
+      <div class="text-emerald-300 font-bold">SHOWCASE</div>
+      <h2 class="text-3xl md:text-4xl font-extrabold mt-2">
+        A quick look at the work.
       </h2>
-      <p class="mt-3 text-white/70 max-w-2xl" data-aos="fade-right" data-aos-delay="120">
-        Residential + commercial lawn care across the Quad Cities.
+      <p class="mt-3 text-white/70">
+        Smooth, clean cuts built for curb appeal.
       </p>
     </div>
 
-    <div class="mt-10 grid gap-5 md:grid-cols-3">
-      <div class="glass rounded-3xl overflow-hidden ringy soft-shadow" data-aos="fade-up">
-        <img class="h-56 w-full object-cover"
-          referrerpolicy="no-referrer"
-          src="https://images.pexels.com/photos/13630739/pexels-photo-13630739.jpeg?cs=srgb&fm=jpg"
-          alt="Zero-turn mower in action" loading="lazy">
-        <div class="p-5">
-          <div class="font-extrabold">Zero-turn performance</div>
-          <div class="text-white/70 text-sm mt-1">Fast, clean cuts with a sharp finish.</div>
-        </div>
-      </div>
-
-      <div class="glass rounded-3xl overflow-hidden ringy soft-shadow" data-aos="fade-up" data-aos-delay="80">
-        <img class="h-56 w-full object-cover"
-          referrerpolicy="no-referrer"
-          src="https://images.pexels.com/photos/6728919/pexels-photo-6728919.jpeg?cs=srgb&fm=jpg"
-          alt="Mowing and lawn care close-up" loading="lazy">
-        <div class="p-5">
-          <div class="font-extrabold">Clean, consistent cuts</div>
-          <div class="text-white/70 text-sm mt-1">A tidy property line and crisp curb appeal.</div>
-        </div>
-      </div>
-
-      <div class="glass rounded-3xl overflow-hidden ringy soft-shadow" data-aos="fade-up" data-aos-delay="160">
-        <img class="h-56 w-full object-cover"
-          referrerpolicy="no-referrer"
-          src="https://images.pexels.com/photos/9229815/pexels-photo-9229815.jpeg?cs=srgb&fm=jpg"
-          alt="Riding mower on lawn" loading="lazy">
-        <div class="p-5">
-          <div class="font-extrabold">Residential + Commercial</div>
-          <div class="text-white/70 text-sm mt-1">Homes, storefronts, rentals, and more.</div>
-        </div>
+    <div class="md:col-span-7">
+      <div class="video-card">
+        <div class="tap-chip">Tap to unmute</div>
+        <video autoplay muted loop playsinline preload="metadata">
+          <source src="https://videos.pexels.com/video-files/34288837/14526690_2160_3840_60fps.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- REVIEWS -->
-  <section id="reviews" class="mx-auto max-w-7xl px-4 py-14">
-    <div class="glass rounded-3xl p-8 ringy soft-shadow" data-aos="fade-up">
-      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-        <div>
-          <div class="text-emerald-200/90 font-extrabold tracking-wide">REVIEWS</div>
-          <h2 class="mt-2 text-3xl md:text-4xl font-extrabold">People notice the difference.</h2>
-          <p class="mt-3 text-white/70 max-w-2xl">
-            Reliable service. Professional results. Great curb appeal.
-          </p>
-        </div>
-        <a href="#contact" class="btn rounded-2xl bg-emerald-500/90 hover:bg-emerald-500 px-6 py-3 font-extrabold text-emerald-950">
-          Request Service
-        </a>
-      </div>
+<!-- SERVICES -->
+<section id="services" class="max-w-7xl mx-auto px-4 py-16">
+  <h2 class="text-3xl md:text-4xl font-extrabold">Services</h2>
 
-      <div class="mt-10 grid gap-5 md:grid-cols-3">
-        <div class="rounded-3xl bg-white/5 border border-white/10 p-6" data-aos="fade-up" data-aos-delay="60">
-          <div class="text-white/90 font-extrabold">“Best cut on the block.”</div>
-          <div class="text-white/70 text-sm mt-2">Always on time, edges are crisp, yard looks amazing.</div>
-          <div class="text-white/55 text-xs mt-4">— Residential Client</div>
-        </div>
-
-        <div class="rounded-3xl bg-white/5 border border-white/10 p-6" data-aos="fade-up" data-aos-delay="120">
-          <div class="text-white/90 font-extrabold">“Reliable commercial maintenance.”</div>
-          <div class="text-white/70 text-sm mt-2">Consistent service and our property looks professional.</div>
-          <div class="text-white/55 text-xs mt-4">— Property Manager</div>
-        </div>
-
-        <div class="rounded-3xl bg-white/5 border border-white/10 p-6" data-aos="fade-up" data-aos-delay="180">
-          <div class="text-white/90 font-extrabold">“Worth every dollar.”</div>
-          <div class="text-white/70 text-sm mt-2">Quick quote, fair price, and the lawn looks great.</div>
-          <div class="text-white/55 text-xs mt-4">— Quad Cities Homeowner</div>
-        </div>
-      </div>
+  <div class="grid md:grid-cols-3 gap-6 mt-8">
+    <div class="glass rounded-3xl p-6">
+      <h3 class="font-extrabold text-xl">Mowing</h3>
+      <p class="text-white/70 mt-2">Professional, consistent lawn cutting.</p>
     </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section id="contact" class="mx-auto max-w-7xl px-4 py-16">
-    <div class="grid gap-8 md:grid-cols-12 items-stretch">
-      <div class="md:col-span-7 glass rounded-3xl p-8 ringy soft-shadow" data-aos="fade-right">
-        <div class="text-emerald-200/90 font-extrabold tracking-wide">CONTACT</div>
-        <h2 class="mt-2 text-3xl md:text-4xl font-extrabold">Get a fast quote.</h2>
-        <p class="mt-3 text-white/70 max-w-xl">
-          Tell us your address and what you need (mowing, edging, cleanup, commercial). We’ll respond quickly.
-        </p>
-
-        <form class="mt-8 grid gap-4" onsubmit="return openMailto(event)">
-          <div class="grid gap-4 md:grid-cols-2">
-            <input id="name" class="rounded-2xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-emerald-300/60"
-              placeholder="Your name" />
-            <input id="phone" class="rounded-2xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-emerald-300/60"
-              placeholder="Phone number" />
-          </div>
-          <input id="address" class="rounded-2xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-emerald-300/60"
-            placeholder="Service address (Davenport / Quad Cities)" />
-          <textarea id="details" rows="4" class="rounded-2xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-emerald-300/60"
-            placeholder="What do you need? (Example: weekly mowing + edging, or commercial quote)"></textarea>
-
-          <button class="btn rounded-2xl bg-emerald-500/95 hover:bg-emerald-500 px-6 py-3 font-extrabold text-emerald-950 w-full md:w-auto">
-            Email Quote Request
-          </button>
-
-          <p class="text-xs text-white/55">
-            Submits through your email app (fast + simple). You can add a real form later anytime.
-          </p>
-        </form>
-      </div>
-
-      <div class="md:col-span-5 glass rounded-3xl p-8 ringy soft-shadow" data-aos="fade-left">
-        <div class="text-white/70 font-semibold">Owner</div>
-        <div class="text-2xl font-extrabold mt-1">Clifton Hare</div>
-
-        <div class="mt-6 space-y-3 text-white/80">
-          <a class="btn block rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 px-5 py-3 font-bold"
-             href="tel:15632710459">
-            📞 (563) 271-0459
-          </a>
-          <a class="btn block rounded-2xl bg-white/10 hover:bg-white/15 border border-white/15 px-5 py-3 font-bold"
-             href="mailto:lawndoctor563@gmail.com">
-            ✉️ lawndoctor563@gmail.com
-          </a>
-        </div>
-
-        <div class="mt-8 rounded-3xl bg-white/5 border border-white/10 p-6">
-          <div class="font-extrabold">Service Area</div>
-          <div class="text-white/70 text-sm mt-2">
-            Davenport • Bettendorf • Rock Island • Moline • Quad Cities & surrounding areas
-          </div>
-        </div>
-      </div>
+    <div class="glass rounded-3xl p-6">
+      <h3 class="font-extrabold text-xl">Edging & Trimming</h3>
+      <p class="text-white/70 mt-2">Crisp edges and clean lines.</p>
     </div>
-  </section>
-
-  <footer class="py-10 text-center text-white/55 text-sm">
-    <div class="mx-auto max-w-7xl px-4">
-      <div class="divider mb-6"></div>
-      <div class="font-semibold text-white/70">Lawn Doctor</div>
-      <div>© <span id="yr"></span> • Davenport, Iowa • Quad Cities Lawn Care</div>
+    <div class="glass rounded-3xl p-6">
+      <h3 class="font-extrabold text-xl">Commercial Maintenance</h3>
+      <p class="text-white/70 mt-2">Reliable service for businesses.</p>
     </div>
-  </footer>
+  </div>
+</section>
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<!-- CONTACT -->
+<section id="contact" class="max-w-7xl mx-auto px-4 py-16">
+  <div class="glass rounded-3xl p-8 md:grid md:grid-cols-2 gap-10">
+    <div>
+      <h2 class="text-3xl font-extrabold">Get a fast quote</h2>
+      <p class="text-white/70 mt-2">Serving Davenport & the Quad Cities.</p>
+    </div>
+    <div class="space-y-3">
+      <a href="tel:15632710459" class="btn block px-5 py-3 rounded-2xl bg-white/10 border border-white/15 font-bold">
+        📞 (563) 271-0459
+      </a>
+      <a href="mailto:lawndoctor563@gmail.com" class="btn block px-5 py-3 rounded-2xl bg-white/10 border border-white/15 font-bold">
+        ✉️ lawndoctor563@gmail.com
+      </a>
+    </div>
+  </div>
+</section>
 
-  <script>
-    // AOS init
-    AOS.init({ once:true, duration:900, offset:80, easing:'ease-out-cubic' });
+<footer class="text-center text-white/60 text-sm py-10">
+  © <span id="yr"></span> Lawn Doctor • Davenport, Iowa
+</footer>
 
-    // Year
-    document.getElementById('yr').textContent = new Date().getFullYear();
+<script>
+  document.getElementById("yr").textContent = new Date().getFullYear();
+</script>
 
-    // Particles background (subtle)
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 42, density: { enable: true, value_area: 800 } },
-        color: { value: "#ffffff" },
-        shape: { type: "circle" },
-        opacity: { value: 0.18, random: true },
-        size: { value: 2.6, random: true },
-        line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.08, width: 1 },
-        move: { enable: true, speed: 1.2 }
-      },
-      interactivity: {
-        detect_on: "canvas",
-        events: { onhover: { enable: true, mode: "repulse" }, onclick: { enable: true, mode: "push" }, resize: true },
-        modes: { repulse: { distance: 120 }, push: { particles_nb: 2 } }
-      },
-      retina_detect: true
-    });
-
-    // SHOWCASE VIDEO: swap this URL any time (or point it to your own uploaded MP4)
-    // Example if you upload: showcase.mp4  ->  const SHOWCASE_SRC = "showcase.mp4";
-    const SHOWCASE_SRC = "https://videos.pexels.com/video-files/34288837/14526690_2160_3840_60fps.mp4";
-
-    const showcaseVideo = document.getElementById("showcaseVideo");
-    const showcaseSource = document.getElementById("showcaseSource");
-    showcaseSource.src = SHOWCASE_SRC;
-    showcaseVideo.load();
-
-    // Tap/click to toggle mute (mobile-friendly)
-    showcaseVideo.addEventListener("click", () => {
-      showcaseVideo.muted = !showcaseVideo.muted;
-      if (!showcaseVideo.paused) return;
-      showcaseVideo.play().catch(()=>{});
-    });
-
-    // Contact form -> mailto
-    function openMailto(e){
-      e.preventDefault();
-      const name = document.getElementById('name').value || '';
-      const phone = document.getElementById('phone').value || '';
-      const address = document.getElementById('address').value || '';
-      const details = document.getElementById('details').value || '';
-
-      const subject = encodeURIComponent('Lawn Doctor Quote Request');
-      const body = encodeURIComponent(
-        `Name: ${name}\nPhone: ${phone}\nAddress: ${address}\n\nDetails:\n${details}\n\n— Sent from Lawn Doctor website`
-      );
-
-      window.location.href = `mailto:lawndoctor563@gmail.com?subject=${subject}&body=${body}`;
-      return false;
-    }
-    window.openMailto = openMailto;
-  </script>
 </body>
 </html>
